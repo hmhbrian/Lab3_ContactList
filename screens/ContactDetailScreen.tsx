@@ -79,7 +79,7 @@ export default function ContactDetailScreen({ route }: any) {
         </View>
         <View style={styles.detailItem}>
           <MaterialIcons name="phone" size={20} color="#666" style={styles.icon} />
-          <Text style={styles.detailText}>Work</Text>
+          <Text style={styles.detailText}>Phone</Text>
           <Text style={styles.detailValue}>{contact.phone}</Text>
         </View>
         <View style={styles.detailItem}>

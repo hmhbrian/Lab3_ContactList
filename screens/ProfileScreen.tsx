@@ -62,10 +62,15 @@ export default function ProfileScreen() {
 
   if (!user) return <Text style={styles.errorText}>Không tìm thấy người dùng</Text>;
 
+  const avatarSource =
+    user.avatarUrl && user.avatarUrl.trim() !== ''
+      ? { uri: user.avatarUrl }
+      : require('../assets/default-avatar.png');
+
   return (
     <View style={styles.container}>
       <View style={styles.profileCard}>
-        <Image source={{ uri: user.avatarUrl }} style={styles.avatar} />
+        <Image source={avatarSource} style={styles.avatar} />
         <Text style={styles.name}>{user.username}</Text>
         <Text style={styles.email}>{user.email}</Text>
         <Text style={styles.phone}>{user.phone}</Text>

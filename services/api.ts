@@ -42,8 +42,11 @@ export const register = async (user: {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   });
-  if (!response.ok) throw new Error('Register failed');
-  return response.json();
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error(text);
+  }
+  return text;
 };
 
 export function logout() {

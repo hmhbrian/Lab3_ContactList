@@ -1,14 +1,17 @@
 import { supabase } from './supabaseClient';
-import { Buffer } from 'buffer';
 
-async function imageUpload(base64String: string, fileName: string = 'image.jpg') {
+async function imageUpload(uri: string, fileName: string = 'image.jpg') {
   try {
-    const blob = new Blob([Buffer.from(base64String, 'base64')], {
-      type: 'image/jpeg',
-    });
-    
+    // // Tạo data URI
+    // const base64DataUri = `data:image/jpeg;base64,${base64String}`;
 
-    const { data, error } = await supabase
+    // // Dùng fetch để chuyển data URI thành Blob
+    // const response = await fetch(base64DataUri);
+    // if (!response.ok) throw new Error('Failed to create blob');
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const { data, error } = await supabase.storage
       .from('user-avatars')
       .upload(fileName, blob, {
         contentType: 'image/jpeg',
@@ -20,7 +23,7 @@ async function imageUpload(base64String: string, fileName: string = 'image.jpg')
       return null;
     }
 
-    const { data: publicUrlData } = supabase
+    const { data: publicUrlData } = supabase.storage
       .from('user-avatars')
       .getPublicUrl(fileName);
 

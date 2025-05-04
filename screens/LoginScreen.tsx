@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Platform, View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { login } from '../services/api';
 import { useNavigation } from '@react-navigation/native';
 
@@ -23,31 +23,37 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Contact World</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        placeholderTextColor="#888"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        placeholderTextColor="#888"
-      />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleRegister}>
-        <Text style={styles.registerText}>Don't have an account? Register</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Contact World</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+          keyboardType="email-address"
+          placeholderTextColor="#888"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          placeholderTextColor="#888"
+        />
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleRegister}>
+          <Text style={styles.registerText}>Don't have an account? Register</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+
   );
 }
 

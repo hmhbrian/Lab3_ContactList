@@ -14,7 +14,7 @@ export default function ConfirmAvatarScreen() {
     try {
       const fileName = `avatar_${Date.now()}.jpg`;
 
-      const avatarUrl = await imageUpload(image.base64, fileName);
+      const avatarUrl = await imageUpload(image.uri, fileName);
       if (!avatarUrl) {
         Alert.alert('Lỗi', 'Không thể tải ảnh lên Supabase');
         return;
